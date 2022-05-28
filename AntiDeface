@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+
+
+deface=`curl http://www.realsepta.ir/ | grep "Hacked\|HACKED BY\|defaced\|cyberwar\|low security\|greets\|was here\|were here\|H4CKED\|deface\|"`
+
+if [ "$deface" ];then
+	redhat=`cat /proc/version | grep -w "Red Hat"`
+	ubuntu=`cat /proc/version | grep -w "Ubuntu"`
+
+	if [ "$redhat" ];then
+		sudo systemctl stop httpd
+	elif [ "$ubuntu" ];then
+		sudo systemctl stop apache2
+	fi
+fi
+
+
