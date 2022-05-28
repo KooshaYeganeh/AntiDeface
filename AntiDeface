@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 
-deface=`curl http://www.realsepta.ir/ | grep "Hacked\|HACKED BY\|defaced\|cyberwar\|low security\|greets\|was here\|were here\|H4CKED\|deface\|"`
+deface=`curl http://<website>/ | grep "Hacked\|HACKED BY\|defaced\|cyberwar\|low security\|greets\|was here\|were here\|H4CKED\|deface\|"`
 
 if [ "$deface" ];then
 	apache_ubuntu=`sudo systemctl | grep apache2`
