@@ -4,13 +4,24 @@
 deface=`curl http://www.realsepta.ir/ | grep "Hacked\|HACKED BY\|defaced\|cyberwar\|low security\|greets\|was here\|were here\|H4CKED\|deface\|"`
 
 if [ "$deface" ];then
+	apache_ubuntu=`sudo systemctl | grep apache2`
+	apache_redhat=`sudo systemctl | grep httpd`
+	nginx=`sudo systemctl | grep nginx`
 	redhat=`cat /proc/version | grep -w "Red Hat"`
 	ubuntu=`cat /proc/version | grep -w "Ubuntu"`
-
+	
 	if [ "$redhat" ];then
-		sudo systemctl stop httpd
+		if [ "$apache_redhat" ];then
+			sudo systemctl stop httpd
+		elif [ "$nginx" ];then
+			sudo systemctl stop nginx
+		fi
 	elif [ "$ubuntu" ];then
-		sudo systemctl stop apache2
+		if [ "$apache_ubuntu" ];then
+			sudo systemctl stop apache2
+		elif [ "$nginx" ];then
+			sudo systemctl stop nginx
+		fi
 	fi
 fi
 
